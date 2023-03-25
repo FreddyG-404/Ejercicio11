@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Local Storage</title>
+  </head>
+  <body>
+    <form>
+      <label for="name">Ingresa tu nombre</label>
+      <input type="text" id="name" name="name" placeholder="Ingresa tu nombre">
+      <button type="submit">Guardar</button>
+    </form>
+    <section></section>
+    <script >
+      // Obtener elementos del DOM
+      const form = document.querySelector('form');
+      const input = document.querySelector('input');
+      const section = document.querySelector('section');
+
+      // Manejar el evento de enviar el formulario
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const name = input.value;
+        localStorage.setItem('name');
+        showName();
+
+      });
+
+      // Función para mostrar el nombre guardado en localStorage
+      function showName() {
+        const name = localStorage.getItem('name');
+        if(name){
+            section.innerHTML = 'EL nombre guardado es ${name}. <button id="deleteButton">Borrar</button';
+
+            const deleteButton = document.querySelector('#deleteButton');
+            deleteButton.addEventListener('click', () =>{
+                deleteName();
+            });    
+        } else{
+            section.textContent = 'No hay datos';
+        }
+      }
+
+      // Función para borrar el nombre guardado en localStorage
+      function deleteName() {
+        localStorage.removeItem('name');
+        section.textContent = 'Nombre eliminado';
+      }
+
+      // Mostrar el nombre guardado al cargar la página
+      showName();
+    </script>
+  </body>
+</html>
